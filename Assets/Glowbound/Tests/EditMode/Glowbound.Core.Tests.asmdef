@@ -2,7 +2,8 @@
   "name": "Glowbound.Core.Tests",
   "rootNamespace": "Glowbound.Core.Tests",
   "references": [
-    "Glowbound.Core"
+    "Glowbound.Core",
+    "Glowbound.Generator"
   ],
   "includePlatforms": [
     "Editor"
