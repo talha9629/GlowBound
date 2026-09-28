@@ -17,9 +17,6 @@ TextureImporter:
   - first:
       213: -646979574965015241
     second: Wall_Lit_4
-  - first:
-      213: -2588803937329680669
-    second: Wall_Lit_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -87,10 +84,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -131,10 +128,10 @@ TextureImporter:
       name: Wall_Lit_0
       rect:
         serializedVersion: 2
-        x: 936
-        y: 1221
-        width: 16
-        height: 17
+        x: 0
+        y: 0
+        width: 1231
+        height: 1254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +150,10 @@ TextureImporter:
       name: Wall_Lit_1
       rect:
         serializedVersion: 2
-        x: 981
-        y: 1235
+        x: 665
+        y: 1197
         width: 9
-        height: 11
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +172,10 @@ TextureImporter:
       name: Wall_Lit_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1207
-        height: 1231
+        x: 1157
+        y: 1046
+        width: 60
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +194,10 @@ TextureImporter:
       name: Wall_Lit_3
       rect:
         serializedVersion: 2
-        x: 665
-        y: 1197
-        width: 13
-        height: 11
+        x: 88
+        y: 168
+        width: 8
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +216,10 @@ TextureImporter:
       name: Wall_Lit_4
       rect:
         serializedVersion: 2
-        x: 691
-        y: 1197
-        width: 7
-        height: 11
+        x: 832
+        y: 86
+        width: 11
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,33 +234,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Wall_Lit_5
-      rect:
-        serializedVersion: 2
-        x: 595
-        y: 7
-        width: 13
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3eee45af888b21cd0800000000000000
-      internalID: -2588803937329680669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -278,7 +253,6 @@ TextureImporter:
       Wall_Lit_2: -4115736323154450871
       Wall_Lit_3: 7264739650157952826
       Wall_Lit_4: -646979574965015241
-      Wall_Lit_5: -2588803937329680669
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

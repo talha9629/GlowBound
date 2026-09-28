@@ -5,18 +5,6 @@ TextureImporter:
   - first:
       213: 4307107887858143230
     second: Wall_Light_Horizontal_0
-  - first:
-      213: 7543148293070142889
-    second: Wall_Light_Horizontal_1
-  - first:
-      213: 6256419425947288169
-    second: Wall_Light_Horizontal_2
-  - first:
-      213: 3566379943819532417
-    second: Wall_Light_Horizontal_3
-  - first:
-      213: -5152410325261648665
-    second: Wall_Light_Horizontal_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -84,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,9 +117,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 15
-        width: 362
-        height: 520
+        y: 0
+        width: 1207
+        height: 1251
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,99 +134,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Horizontal_1
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 534
-        width: 48
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ad3a804865aea860800000000000000
-      internalID: 7543148293070142889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Horizontal_2
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 508
-        width: 17
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9620179e15443d650800000000000000
-      internalID: 6256419425947288169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Horizontal_3
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 340
-        width: 10
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 188d075d9a35e7130800000000000000
-      internalID: 3566379943819532417
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Horizontal_4
-      rect:
-        serializedVersion: 2
-        x: 115
-        y: 49
-        width: 19
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7ec79b99b16fe78b0800000000000000
-      internalID: -5152410325261648665
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -249,10 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Wall_Light_Horizontal_0: 4307107887858143230
-      Wall_Light_Horizontal_1: 7543148293070142889
-      Wall_Light_Horizontal_2: 6256419425947288169
-      Wall_Light_Horizontal_3: 3566379943819532417
-      Wall_Light_Horizontal_4: -5152410325261648665
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

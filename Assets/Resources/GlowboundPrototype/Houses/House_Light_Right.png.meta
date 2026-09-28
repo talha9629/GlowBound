@@ -5,24 +5,6 @@ TextureImporter:
   - first:
       213: 9155450554090766847
     second: House_Light_Right_0
-  - first:
-      213: -5376833068438787558
-    second: House_Light_Right_1
-  - first:
-      213: 558130832868640512
-    second: House_Light_Right_2
-  - first:
-      213: 1442166953674439094
-    second: House_Light_Right_3
-  - first:
-      213: -2140425483721977982
-    second: House_Light_Right_4
-  - first:
-      213: -1775548796988194880
-    second: House_Light_Right_5
-  - first:
-      213: 6877243770583831201
-    second: House_Light_Right_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -64,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -90,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,8 +118,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 362
-        height: 519
+        width: 1254
+        height: 1254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,143 +134,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: House_Light_Right_1
-      rect:
-        serializedVersion: 2
-        x: 338
-        y: 466
-        width: 7
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a1ae12bdfc6a165b0800000000000000
-      internalID: -5376833068438787558
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Right_2
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 451
-        width: 7
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 007045f0901eeb700800000000000000
-      internalID: 558130832868640512
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Right_3
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 39
-        width: 15
-        height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b97294143b930410800000000000000
-      internalID: 1442166953674439094
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Right_4
-      rect:
-        serializedVersion: 2
-        x: 328
-        y: 15
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 28fce8eec5eab42e0800000000000000
-      internalID: -2140425483721977982
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Right_5
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 0
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0cf7522c6cbfb57e0800000000000000
-      internalID: -1775548796988194880
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Right_6
-      rect:
-        serializedVersion: 2
-        x: 199
-        y: 0
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a2da6ba5c0e07f50800000000000000
-      internalID: 6877243770583831201
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -299,12 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       House_Light_Right_0: 9155450554090766847
-      House_Light_Right_1: -5376833068438787558
-      House_Light_Right_2: 558130832868640512
-      House_Light_Right_3: 1442166953674439094
-      House_Light_Right_4: -2140425483721977982
-      House_Light_Right_5: -1775548796988194880
-      House_Light_Right_6: 6877243770583831201
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

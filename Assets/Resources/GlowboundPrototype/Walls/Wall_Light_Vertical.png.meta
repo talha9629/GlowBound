@@ -5,12 +5,6 @@ TextureImporter:
   - first:
       213: -4407698742856451316
     second: Wall_Light_Vertical_0
-  - first:
-      213: -4219812420319048756
-    second: Wall_Light_Vertical_1
-  - first:
-      213: 3583896919953679987
-    second: Wall_Light_Vertical_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -78,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,9 +117,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 56
-        width: 362
-        height: 487
+        y: 0
+        width: 1223
+        height: 1254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,55 +134,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Vertical_1
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 518
-        width: 16
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ccb0a1416f63075c0800000000000000
-      internalID: -4219812420319048756
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Vertical_2
-      rect:
-        serializedVersion: 2
-        x: 273
-        y: 526
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 376a479a24f8cb130800000000000000
-      internalID: 3583896919953679987
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -199,8 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Wall_Light_Vertical_0: -4407698742856451316
-      Wall_Light_Vertical_1: -4219812420319048756
-      Wall_Light_Vertical_2: 3583896919953679987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: -7705425978768939675
     second: House_Light_Top_0
-  - first:
-      213: 1738821744324142332
-    second: House_Light_Top_1
-  - first:
-      213: 7332985227865732345
-    second: House_Light_Top_2
-  - first:
-      213: -5493406825472588819
-    second: House_Light_Top_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -81,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,9 +117,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 38
-        width: 362
-        height: 485
+        y: 0
+        width: 1254
+        height: 1254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,77 +134,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: House_Light_Top_1
-      rect:
-        serializedVersion: 2
-        x: 346
-        y: 39
-        width: 7
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cf46a2ee929812810800000000000000
-      internalID: 1738821744324142332
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Top_2
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 0
-        width: 22
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9f4bf12863ff3c560800000000000000
-      internalID: 7332985227865732345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Top_3
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 15
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: de30009f89f73c3b0800000000000000
-      internalID: -5493406825472588819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -224,9 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       House_Light_Top_0: -7705425978768939675
-      House_Light_Top_1: 1738821744324142332
-      House_Light_Top_2: 7332985227865732345
-      House_Light_Top_3: -5493406825472588819
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

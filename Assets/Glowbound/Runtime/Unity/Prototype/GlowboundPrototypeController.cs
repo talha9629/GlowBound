@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Glowbound.Core;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 namespace Glowbound.Unity.Prototype
 {
@@ -23,15 +26,6 @@ namespace Glowbound.Unity.Prototype
     {
         private const float DoubleTapWindow = 0.28f;
         private const float LongPressSeconds = 0.42f;
-        private readonly Color[] _districtColors =
-        {
-            new Color(0.95f,0.76f,0.73f), new Color(0.72f,0.88f,0.81f),
-            new Color(0.76f,0.82f,0.96f), new Color(0.94f,0.87f,0.66f),
-            new Color(0.86f,0.76f,0.93f), new Color(0.70f,0.87f,0.91f),
-            new Color(0.94f,0.78f,0.87f), new Color(0.82f,0.90f,0.68f)
-        };
-
-        private GUIStyle _title, _status, _cell, _house, _small;
         private PrototypeArtSkin _art;
         private CompiledPuzzle _puzzle;
         private PuzzleState _state;
@@ -41,12 +35,18 @@ namespace Glowbound.Unity.Prototype
         private int _pressedCell = -1, _pendingTapCell = -1;
         private float _pressStartedAt, _pendingTapAt;
         private bool _longPressTriggered;
-        private Rect _boardRect;
-        private float _cellSize;
+
+        private Canvas _canvas;
+        private RectTransform _boardRoot;
+        private Text _statusText, _levelText, _gestureText;
+        private PrototypeCellView[] _cellViews;
+        private Font _font;
 
         private void Awake()
         {
             _art = new PrototypeArtSkin();
+            _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            BuildCanvas();
             LoadLevel(_levelIndex);
         }
 
@@ -57,179 +57,283 @@ namespace Glowbound.Unity.Prototype
                 ToggleX(_pendingTapCell);
                 _pendingTapCell = -1;
             }
+
             if (_gesture == PrototypeLanternGesture.LongPress && _pressedCell >= 0 && !_longPressTriggered && Time.unscaledTime - _pressStartedAt >= LongPressSeconds)
             {
                 ToggleLantern(_pressedCell);
                 _longPressTriggered = true;
             }
         }
-
-        private void OnGUI()
+        private void BuildCanvas()
         {
-            EnsureStyles(); DrawBackground(); DrawHeader();
-            if (_puzzle == null) return;
-            CalculateBoardRect(); DrawBoard(); DrawFooter(); HandlePointer(Event.current);
+            var canvasGo = new GameObject("Glowbound Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            canvasGo.transform.SetParent(transform, false);
+            _canvas = canvasGo.GetComponent<Canvas>();
+            _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+            var scaler = canvasGo.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1080f, 1920f);
+            scaler.matchWidthOrHeight = 0.5f;
+
+            EnsureEventSystem();
+            CreateBackground(canvasGo.transform);
+            CreateHeader(canvasGo.transform);
+            CreateBoardRoot(canvasGo.transform);
+            CreateFooter(canvasGo.transform);
         }
 
-        private void EnsureStyles()
+        private void EnsureEventSystem()
         {
-            if (_title != null) return;
-            _title = new GUIStyle(GUI.skin.label) { fontSize = 30, fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
-            _status = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
-            _cell = new GUIStyle(GUI.skin.box) { fontSize = 26, fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
-            _house = new GUIStyle(_cell) { fontSize = 28 };
-            _small = new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.MiddleCenter, wordWrap = true };
+            if (EventSystem.current != null) return;
+            var eventGo = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
+            eventGo.transform.SetParent(transform, false);
         }
 
-        private void DrawBackground()
+        private void CreateBackground(Transform parent)
         {
-            var old = GUI.color; GUI.color = new Color(0.97f,0.94f,0.87f);
-            GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), Texture2D.whiteTexture); GUI.color = old;
+            var image = CreateImage("Background", parent, null, new Color(0.97f, 0.94f, 0.87f, 1f));
+            var rt = image.rectTransform;
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.offsetMin = rt.offsetMax = Vector2.zero;
+        }
+        private void CreateHeader(Transform parent)
+        {
+            var title = CreateText("Title", parent, "GLOWBOUND", 52, FontStyle.Bold, TextAnchor.MiddleCenter);
+            SetRect(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(900f, 80f), new Vector2(0f, -70f));
+
+            _levelText = CreateText("Level", parent, string.Empty, 24, FontStyle.Normal, TextAnchor.MiddleCenter);
+            SetRect(_levelText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(900f, 50f), new Vector2(0f, -125f));
+
+            _statusText = CreateText("Status", parent, string.Empty, 28, FontStyle.Bold, TextAnchor.MiddleCenter);
+            SetRect(_statusText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(900f, 60f), new Vector2(0f, -180f));
         }
 
-        private void DrawHeader()
+        private void CreateBoardRoot(Transform parent)
         {
-            GUI.Label(new Rect(20,14,Screen.width-40,42), "GLOWBOUND", _title);
-            GUI.Label(new Rect(20,52,Screen.width-40,28), $"Prototype  -  Level {_levelIndex+1}/{PrototypePuzzleCatalog.Count}", _small);
-            var text = _evaluation == null ? "Loading" : _evaluation.IsSolved ? "SOLVED  OK" : _evaluation.HasContradiction ? "Visible contradiction" : "Light every district";
-            var old = GUI.contentColor;
-            GUI.contentColor = _evaluation != null && _evaluation.IsSolved ? new Color(0.14f,0.48f,0.25f) : _evaluation != null && _evaluation.HasContradiction ? new Color(0.70f,0.18f,0.16f) : new Color(0.22f,0.25f,0.28f);
-            GUI.Label(new Rect(20,80,Screen.width-40,32), text, _status); GUI.contentColor = old;
+            var go = new GameObject("Board", typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            _boardRoot = (RectTransform)go.transform;
+            _boardRoot.anchorMin = _boardRoot.anchorMax = new Vector2(0.5f, 0.5f);
+            _boardRoot.sizeDelta = new Vector2(960f, 1120f);
+            _boardRoot.anchoredPosition = new Vector2(0f, 45f);
         }
 
-        private void CalculateBoardRect()
+        private void CreateFooter(Transform parent)
         {
-            const float top=122f, footer=150f;
-            var aw=Mathf.Max(120f,Screen.width-32f); var ah=Mathf.Max(120f,Screen.height-top-footer);
-            _cellSize=Mathf.Max(34f,Mathf.Floor(Mathf.Min(aw/_puzzle.Definition.Width,ah/_puzzle.Definition.Height)));
-            var w=_cellSize*_puzzle.Definition.Width; var h=_cellSize*_puzzle.Definition.Height;
-            _boardRect=new Rect((Screen.width-w)*0.5f,top+Mathf.Max(0f,(ah-h)*0.35f),w,h);
-        }
+            CreateButton(parent, "Prev", "< Level", new Vector2(-330f, 160f), () => LoadLevel((_levelIndex - 1 + PrototypePuzzleCatalog.Count) % PrototypePuzzleCatalog.Count));
+            CreateButton(parent, "Reset", "Reset", new Vector2(0f, 160f), ResetPuzzle);
+            CreateButton(parent, "Next", "Level >", new Vector2(330f, 160f), () => LoadLevel((_levelIndex + 1) % PrototypePuzzleCatalog.Count));
 
-        private void DrawBoard()
+            var gestureButton = CreateButton(parent, "Gesture", string.Empty, new Vector2(0f, 90f), ToggleGesture, new Vector2(820f, 64f));
+            _gestureText = gestureButton.GetComponentInChildren<Text>();
+        }
+        private void BuildBoard()
         {
-            DrawBeams();
-            for(var i=0;i<_puzzle.Definition.CellCount;i++)
+            for (var i = _boardRoot.childCount - 1; i >= 0; i--)
+                Destroy(_boardRoot.GetChild(i).gameObject);
+
+            var count = _puzzle.Definition.CellCount;
+            _cellViews = new PrototypeCellView[count];
+            var cellSize = Mathf.Min(180f, Mathf.Min(900f / _puzzle.Definition.Width, 1040f / _puzzle.Definition.Height));
+            var boardWidth = cellSize * _puzzle.Definition.Width;
+            var boardHeight = cellSize * _puzzle.Definition.Height;
+
+            for (var i = 0; i < count; i++)
             {
-                var rect=CellRect(i); var c=_puzzle.Definition.Cells[i];
-                if(c.Kind==CellKind.District) DrawDistrict(i,rect,c); else if(c.Kind==CellKind.House) DrawHouse(i,rect,c); else DrawWall(i,rect);
+                _puzzle.Definition.ToCoordinates(i, out var x, out var y);
+                var cellGo = new GameObject($"Cell {i}", typeof(RectTransform), typeof(Image), typeof(PrototypeCellView));
+                cellGo.transform.SetParent(_boardRoot, false);
+                var rt = (RectTransform)cellGo.transform;
+                rt.sizeDelta = new Vector2(cellSize, cellSize);
+                rt.anchoredPosition = new Vector2(-boardWidth * 0.5f + cellSize * (x + 0.5f), boardHeight * 0.5f - cellSize * (y + 0.5f));
+
+                var baseImage = cellGo.GetComponent<Image>();
+                baseImage.preserveAspect = true;
+                var beam = CreateImage("Beam", cellGo.transform, null, new Color(1f, 0.78f, 0.18f, 0.20f));
+                Stretch(beam.rectTransform, 12f);
+                beam.raycastTarget = false;
+                var mark = CreateImage("Mark", cellGo.transform, null, Color.white);
+                Stretch(mark.rectTransform, cellSize * 0.16f);
+                mark.raycastTarget = false;
+                var number = CreateText("Number", cellGo.transform, string.Empty, Mathf.RoundToInt(cellSize * 0.30f), FontStyle.Bold, TextAnchor.MiddleCenter);
+                Stretch(number.rectTransform, cellSize * 0.18f);
+                number.raycastTarget = false;
+
+                var view = cellGo.GetComponent<PrototypeCellView>();
+                view.Initialize(this, i, baseImage, beam, mark, number);
+                _cellViews[i] = view;
             }
         }
-
-        private void DrawDistrict(int index, Rect rect, CellDefinition c)
+        private void RefreshBoard()
         {
-            DrawTexture(rect, _art.Tile(c.DistrictId), 1f);
-            if(_state[index]==PlayerCellState.X)
-                DrawTexture(Shrink(rect,_cellSize*0.22f), _art.XMark);
-            else if(_state[index]==PlayerCellState.Lantern)
-                DrawTexture(Shrink(rect,_cellSize*0.12f), _art.Lantern);
-        }
-
-        private void DrawHouse(int index, Rect rect, CellDefinition c)
-        {
-            var h=FindHouse(index);
-            var mask=h.HasValue?h.Value.IncomingMask:LightDirectionMask.None;
-            DrawTexture(rect,_art.House(mask),1f);
-            var old=GUI.contentColor; GUI.contentColor=new Color(0.28f,0.18f,0.12f);
-            GUI.Label(Shrink(rect,_cellSize*0.28f),c.HouseTarget.ToString(),_house); GUI.contentColor=old;
-            if(h.HasValue && h.Value.IncomingCount>h.Value.Target) Overlay(rect,new Color(0.85f,0.12f,0.10f,0.24f));
-        }
-
-        private void DrawWall(int index, Rect rect)
-        {
-            DrawTexture(rect,_art.Wall(GetWallIncomingMask(index)),1f);
-        }
-
-        private void DrawBeams()
-        {
-            var old=GUI.color; GUI.color=new Color(1f,0.78f,0.18f,0.22f);
-            for(var i=0;i<_state.CellCount;i++)
+            var litCells = new HashSet<int>();
+            for (var i = 0; i < _state.CellCount; i++)
             {
-                if(_state[i]!=PlayerCellState.Lantern) continue;
-                var rays=LightPropagation.TraceFromLantern(_puzzle,_state,i);
-                foreach(var ray in rays)
+                if (_state[i] != PlayerCellState.Lantern) continue;
+                foreach (var ray in LightPropagation.TraceFromLantern(_puzzle, _state, i))
+                    foreach (var cell in ray.TraversedPlayableCells) litCells.Add(cell);
+            }
+
+            for (var i = 0; i < _cellViews.Length; i++)
+            {
+                var view = _cellViews[i];
+                var def = _puzzle.Definition.Cells[i];
+                view.BeamImage.gameObject.SetActive(def.Kind == CellKind.District && litCells.Contains(i));
+                view.MarkImage.gameObject.SetActive(false);
+                view.NumberText.text = string.Empty;
+
+                if (def.Kind == CellKind.District)
                 {
-                    foreach(var cell in ray.TraversedPlayableCells) GUI.DrawTexture(Shrink(CellRect(cell),4f),Texture2D.whiteTexture);
-                    if(ray.IlluminatesHouse && ray.TerminalCellIndex>=0) GUI.DrawTexture(Shrink(CellRect(ray.TerminalCellIndex),8f),Texture2D.whiteTexture);
+                    view.BaseImage.sprite = _art.Tile(def.DistrictId);
+                    if (_state[i] == PlayerCellState.X) { view.MarkImage.sprite = _art.XMark; view.MarkImage.gameObject.SetActive(true); }
+                    else if (_state[i] == PlayerCellState.Lantern) { view.MarkImage.sprite = _art.Lantern; view.MarkImage.gameObject.SetActive(true); }
                 }
+                else if (def.Kind == CellKind.House)
+                {
+                    var house = FindHouse(i);
+                    view.BaseImage.sprite = _art.House(house?.IncomingMask ?? LightDirectionMask.None);
+                    view.NumberText.text = def.HouseTarget.ToString();
+                    view.NumberText.color = house.HasValue && house.Value.IncomingCount > house.Value.Target ? new Color(0.75f, 0.10f, 0.08f) : new Color(0.28f, 0.18f, 0.12f);
+                }
+                else view.BaseImage.sprite = _art.Wall(GetWallIncomingMask(i));
             }
-            GUI.color=old;
+
+            RefreshHeader();
+        }
+        private void RefreshHeader()
+        {
+            _levelText.text = $"Prototype - Level {_levelIndex + 1}/{PrototypePuzzleCatalog.Count}";
+            if (_evaluation.IsSolved)
+            {
+                _statusText.text = "SOLVED";
+                _statusText.color = new Color(0.14f, 0.48f, 0.25f);
+            }
+            else if (_evaluation.HasContradiction)
+            {
+                _statusText.text = "Visible contradiction";
+                _statusText.color = new Color(0.70f, 0.18f, 0.16f);
+            }
+            else
+            {
+                _statusText.text = "Light every district";
+                _statusText.color = new Color(0.22f, 0.25f, 0.28f);
+            }
+
+            _gestureText.text = _gesture == PrototypeLanternGesture.LongPress
+                ? "Tap = X   |   Hold = Lantern"
+                : "Tap = X   |   Double Tap = Lantern";
         }
 
-        private void DrawFooter()
+        public void OnCellPointerDown(int cell)
         {
-            var y=Mathf.Min(Screen.height-132f,_boardRect.yMax+14f); var bw=Mathf.Min(150f,(Screen.width-48f)/3f);
-            if(GUI.Button(new Rect(16,y,bw,38),"< Level")) LoadLevel((_levelIndex-1+PrototypePuzzleCatalog.Count)%PrototypePuzzleCatalog.Count);
-            if(GUI.Button(new Rect((Screen.width-bw)*0.5f,y,bw,38),"Reset")) ResetPuzzle();
-            if(GUI.Button(new Rect(Screen.width-bw-16,y,bw,38),"Level >")) LoadLevel((_levelIndex+1)%PrototypePuzzleCatalog.Count);
-            y+=46f;
-            var label=_gesture==PrototypeLanternGesture.LongPress ? "Input: Tap = X  -  Hold = Lantern" : "Input: Tap = X  -  Double Tap = Lantern";
-            if(GUI.Button(new Rect(26,y,Screen.width-52,38),label)) { _gesture=_gesture==PrototypeLanternGesture.LongPress?PrototypeLanternGesture.DoubleTap:PrototypeLanternGesture.LongPress; CancelPointer(); }
-            GUI.Label(new Rect(20,y+42f,Screen.width-40,34),"Prototype only - logic and feel first, art later.",_small);
+            if (!IsPlayable(cell)) return;
+            _pressedCell = cell;
+            _pressStartedAt = Time.unscaledTime;
+            _longPressTriggered = false;
         }
 
-        private void HandlePointer(Event e)
+        public void OnCellPointerExit(int cell)
         {
-            if(e==null) return;
-            if(e.type==EventType.MouseDown && e.button==0)
+            if (_pressedCell == cell) _pressedCell = -1;
+        }
+        public void OnCellPointerUp(int cell)
+        {
+            if (_pressedCell != cell) return;
+            _pressedCell = -1;
+
+            if (_gesture == PrototypeLanternGesture.LongPress)
             {
-                var cell=CellAt(e.mousePosition);
-                if(cell>=0 && _puzzle.Definition.Cells[cell].Kind==CellKind.District) { _pressedCell=cell; _pressStartedAt=Time.unscaledTime; _longPressTriggered=false; e.Use(); }
+                if (!_longPressTriggered) ToggleX(cell);
             }
-            else if(e.type==EventType.MouseUp && e.button==0 && _pressedCell>=0)
-            {
-                var released=CellAt(e.mousePosition); var cell=_pressedCell; _pressedCell=-1;
-                if(released!=cell) { _longPressTriggered=false; return; }
-                if(_gesture==PrototypeLanternGesture.LongPress) { if(!_longPressTriggered) ToggleX(cell); } else HandleDoubleTap(cell);
-                _longPressTriggered=false; e.Use();
-            }
+            else HandleDoubleTap(cell);
+
+            _longPressTriggered = false;
         }
 
         private void HandleDoubleTap(int cell)
         {
-            if(_pendingTapCell==cell && Time.unscaledTime-_pendingTapAt<=DoubleTapWindow) { _pendingTapCell=-1; ToggleLantern(cell); return; }
-            if(_pendingTapCell>=0) ToggleX(_pendingTapCell);
-            _pendingTapCell=cell; _pendingTapAt=Time.unscaledTime;
+            if (_pendingTapCell == cell && Time.unscaledTime - _pendingTapAt <= DoubleTapWindow)
+            {
+                _pendingTapCell = -1;
+                ToggleLantern(cell);
+                return;
+            }
+
+            if (_pendingTapCell >= 0) ToggleX(_pendingTapCell);
+            _pendingTapCell = cell;
+            _pendingTapAt = Time.unscaledTime;
         }
 
         private void ToggleX(int cell)
         {
-            if(!IsPlayable(cell)) return;
-            _state[cell]=_state[cell]==PlayerCellState.X?PlayerCellState.Empty:PlayerCellState.X; Reevaluate();
+            if (!IsPlayable(cell)) return;
+            _state[cell] = _state[cell] == PlayerCellState.X ? PlayerCellState.Empty : PlayerCellState.X;
+            Reevaluate();
         }
 
         private void ToggleLantern(int cell)
         {
-            if(!IsPlayable(cell)) return;
-            _state[cell]=_state[cell]==PlayerCellState.Lantern?PlayerCellState.Empty:PlayerCellState.Lantern; Reevaluate();
+            if (!IsPlayable(cell)) return;
+            _state[cell] = _state[cell] == PlayerCellState.Lantern ? PlayerCellState.Empty : PlayerCellState.Lantern;
+            Reevaluate();
+        }
+        private void Reevaluate()
+        {
+            _evaluation = PuzzleEvaluator.Evaluate(_puzzle, _state);
+            RefreshBoard();
         }
 
-        private void Reevaluate()=>_evaluation=PuzzleEvaluator.Evaluate(_puzzle,_state);
-        private void ResetPuzzle(){_state.Clear();CancelPointer();Reevaluate();}
-        private void LoadLevel(int index){_levelIndex=Mathf.Clamp(index,0,PrototypePuzzleCatalog.Count-1);_puzzle=PuzzleCompiler.Compile(PrototypePuzzleCatalog.Get(_levelIndex));_state=new PuzzleState(_puzzle.Definition);CancelPointer();Reevaluate();}
-        private void CancelPointer(){_pressedCell=-1;_pendingTapCell=-1;_longPressTriggered=false;}
-        private bool IsPlayable(int cell)=>cell>=0&&cell<_puzzle.Definition.CellCount&&_puzzle.Definition.Cells[cell].Kind==CellKind.District;
-
-        private Rect CellRect(int index)
+        private void ResetPuzzle()
         {
-            _puzzle.Definition.ToCoordinates(index,out var x,out var y); return new Rect(_boardRect.x+x*_cellSize,_boardRect.y+y*_cellSize,_cellSize,_cellSize);
+            _state.Clear();
+            CancelPointer();
+            Reevaluate();
         }
 
-        private int CellAt(Vector2 p)
+        private void ToggleGesture()
         {
-            if(!_boardRect.Contains(p)) return -1; var x=Mathf.FloorToInt((p.x-_boardRect.x)/_cellSize); var y=Mathf.FloorToInt((p.y-_boardRect.y)/_cellSize);
-            return _puzzle.Definition.IsInBounds(x,y)?_puzzle.Definition.ToIndex(x,y):-1;
+            _gesture = _gesture == PrototypeLanternGesture.LongPress ? PrototypeLanternGesture.DoubleTap : PrototypeLanternGesture.LongPress;
+            CancelPointer();
+            RefreshHeader();
+        }
+
+        private void LoadLevel(int index)
+        {
+            _levelIndex = Mathf.Clamp(index, 0, PrototypePuzzleCatalog.Count - 1);
+            _puzzle = PuzzleCompiler.Compile(PrototypePuzzleCatalog.Get(_levelIndex));
+            _state = new PuzzleState(_puzzle.Definition);
+            CancelPointer();
+            _evaluation = PuzzleEvaluator.Evaluate(_puzzle, _state);
+            BuildBoard();
+            RefreshBoard();
+        }
+
+        private void CancelPointer()
+        {
+            _pressedCell = -1;
+            _pendingTapCell = -1;
+            _longPressTriggered = false;
+        }
+        private bool IsPlayable(int cell) => cell >= 0 && cell < _puzzle.Definition.CellCount && _puzzle.Definition.Cells[cell].Kind == CellKind.District;
+
+        private HouseEvaluation? FindHouse(int cell)
+        {
+            foreach (var house in _evaluation.Houses)
+                if (house.CellIndex == cell) return house;
+            return null;
         }
 
         private LightDirectionMask GetWallIncomingMask(int wallCell)
         {
-            var mask=LightDirectionMask.None;
-            for(var i=0;i<_state.CellCount;i++)
+            var mask = LightDirectionMask.None;
+            for (var i = 0; i < _state.CellCount; i++)
             {
-                if(_state[i]!=PlayerCellState.Lantern) continue;
-                foreach(var ray in LightPropagation.TraceFromLantern(_puzzle,_state,i))
+                if (_state[i] != PlayerCellState.Lantern) continue;
+                foreach (var ray in LightPropagation.TraceFromLantern(_puzzle, _state, i))
                 {
-                    if(ray.Termination!=LightRayTermination.Wall || ray.TerminalCellIndex!=wallCell) continue;
+                    if (ray.Termination != LightRayTermination.Wall || ray.TerminalCellIndex != wallCell) continue;
                     mask |= IncomingMask(ray.Direction);
                 }
             }
@@ -238,58 +342,104 @@ namespace Glowbound.Unity.Prototype
 
         private static LightDirectionMask IncomingMask(LightDirection rayDirection)
         {
-            switch(rayDirection)
+            return rayDirection switch
             {
-                case LightDirection.Up: return LightDirectionMask.Down;
-                case LightDirection.Right: return LightDirectionMask.Left;
-                case LightDirection.Down: return LightDirectionMask.Up;
-                case LightDirection.Left: return LightDirectionMask.Right;
-                default: return LightDirectionMask.None;
-            }
+                LightDirection.Up => LightDirectionMask.Down,
+                LightDirection.Right => LightDirectionMask.Left,
+                LightDirection.Down => LightDirectionMask.Up,
+                LightDirection.Left => LightDirectionMask.Right,
+                _ => LightDirectionMask.None
+            };
         }
-
-        private static void DrawTexture(Rect rect, Texture2D texture, float inset=0f)
+        private Image CreateImage(string name, Transform parent, Sprite sprite, Color color)
         {
-            if(texture==null) return;
-            var target=inset>0f?Shrink(rect,inset):rect;
-            GUI.DrawTexture(target,texture,ScaleMode.ScaleToFit,true);
+            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+            var image = go.GetComponent<Image>();
+            image.sprite = sprite;
+            image.color = color;
+            image.preserveAspect = true;
+            return image;
         }
 
-        private HouseEvaluation? FindHouse(int cell)
+        private Text CreateText(string name, Transform parent, string value, int size, FontStyle style, TextAnchor anchor)
         {
-            if(_evaluation==null) return null; foreach(var h in _evaluation.Houses) if(h.CellIndex==cell) return h; return null;
+            var go = new GameObject(name, typeof(RectTransform), typeof(Text));
+            go.transform.SetParent(parent, false);
+            var text = go.GetComponent<Text>();
+            text.font = _font;
+            text.text = value;
+            text.fontSize = size;
+            text.fontStyle = style;
+            text.alignment = anchor;
+            text.color = new Color(0.22f, 0.20f, 0.18f);
+            return text;
         }
 
-        private static Rect Shrink(Rect r,float a)=>new Rect(r.x+a,r.y+a,Mathf.Max(0,r.width-a*2),Mathf.Max(0,r.height-a*2));
-        private static void Overlay(Rect r,Color c){var old=GUI.color;GUI.color=c;GUI.DrawTexture(Shrink(r,3f),Texture2D.whiteTexture);GUI.color=old;}
+        private Button CreateButton(Transform parent, string name, string label, Vector2 position, UnityEngine.Events.UnityAction action, Vector2? size = null)
+        {
+            var image = CreateImage(name, parent, null, new Color(1f, 0.96f, 0.88f, 0.98f));
+            var button = image.gameObject.AddComponent<Button>();
+            var rt = image.rectTransform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0f);
+            rt.sizeDelta = size ?? new Vector2(250f, 64f);
+            rt.anchoredPosition = position;
+            button.onClick.AddListener(action);
+            var text = CreateText("Label", image.transform, label, 24, FontStyle.Bold, TextAnchor.MiddleCenter);
+            Stretch(text.rectTransform, 6f);
+            return button;
+        }
+        private static void SetRect(RectTransform rt, Vector2 anchorMin, Vector2 anchorMax, Vector2 size, Vector2 position)
+        {
+            rt.anchorMin = anchorMin;
+            rt.anchorMax = anchorMax;
+            rt.sizeDelta = size;
+            rt.anchoredPosition = position;
+        }
+
+        private static void Stretch(RectTransform rt, float inset)
+        {
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.offsetMin = new Vector2(inset, inset);
+            rt.offsetMax = new Vector2(-inset, -inset);
+        }
     }
 
     public static class PrototypePuzzleCatalog
     {
-        private static readonly string[][] Levels=
+        private static readonly string[][] Levels =
         {
             new[]{"A"}, new[]{"1A1"}, new[]{"A2B"}, new[]{"#A#","B3C","###"}, new[]{"EEED1","E2DDD","EBBDD","ADDDC","DD3CC"}
         };
-        public static int Count=>Levels.Length;
+
+        public static int Count => Levels.Length;
+
         public static PuzzleDefinition Get(int index)
         {
-            if(index<0||index>=Levels.Length) throw new ArgumentOutOfRangeException(nameof(index));
-            return Parse($"prototype-{index+1:00}",Levels[index]);
+            if (index < 0 || index >= Levels.Length) throw new ArgumentOutOfRangeException(nameof(index));
+            return Parse($"prototype-{index + 1:00}", Levels[index]);
         }
-        private static PuzzleDefinition Parse(string id,string[] rows)
+        private static PuzzleDefinition Parse(string id, string[] rows)
         {
-            if(rows==null||rows.Length==0) throw new ArgumentException("At least one row is required.",nameof(rows));
-            var width=rows[0].Length; var cells=new List<CellDefinition>(width*rows.Length);
-            for(var y=0;y<rows.Length;y++)
+            if (rows == null || rows.Length == 0) throw new ArgumentException("At least one row is required.", nameof(rows));
+            var width = rows[0].Length;
+            var cells = new List<CellDefinition>(width * rows.Length);
+
+            for (var y = 0; y < rows.Length; y++)
             {
-                if(rows[y].Length!=width) throw new InvalidOperationException("Prototype rows must be rectangular.");
-                for(var x=0;x<width;x++)
+                if (rows[y].Length != width) throw new InvalidOperationException("Prototype rows must be rectangular.");
+                for (var x = 0; x < width; x++)
                 {
-                    var t=rows[y][x];
-                    if(t>='A'&&t<='Z') cells.Add(CellDefinition.District(t-'A')); else if(t>='1'&&t<='3') cells.Add(CellDefinition.House((byte)(t-'0'))); else if(t=='#') cells.Add(CellDefinition.Wall()); else throw new InvalidOperationException($"Unsupported token '{t}'.");
+                    var token = rows[y][x];
+                    if (token >= 'A' && token <= 'Z') cells.Add(CellDefinition.District(token - 'A'));
+                    else if (token >= '1' && token <= '3') cells.Add(CellDefinition.House((byte)(token - '0')));
+                    else if (token == '#') cells.Add(CellDefinition.Wall());
+                    else throw new InvalidOperationException($"Unsupported token '{token}'.");
                 }
             }
-            return new PuzzleDefinition(id,width,rows.Length,cells.ToArray());
+
+            return new PuzzleDefinition(id, width, rows.Length, cells.ToArray());
         }
     }
 }

@@ -17,21 +17,6 @@ TextureImporter:
   - first:
       213: -4473881473431027995
     second: Wall_Light_Bottom_4
-  - first:
-      213: 6238140122758730456
-    second: Wall_Light_Bottom_5
-  - first:
-      213: 4110574667927206221
-    second: Wall_Light_Bottom_6
-  - first:
-      213: -614692282834465297
-    second: Wall_Light_Bottom_7
-  - first:
-      213: -4774557363608977424
-    second: Wall_Light_Bottom_8
-  - first:
-      213: 6024354580478268886
-    second: Wall_Light_Bottom_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -73,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -99,10 +84,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -143,10 +128,10 @@ TextureImporter:
       name: Wall_Light_Bottom_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 477
-        width: 60
-        height: 21
+        x: 0
+        y: 7
+        width: 1237
+        height: 1229
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,10 +150,10 @@ TextureImporter:
       name: Wall_Light_Bottom_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 435
-        width: 27
-        height: 56
+        x: 86
+        y: 1209
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,10 +172,10 @@ TextureImporter:
       name: Wall_Light_Bottom_2
       rect:
         serializedVersion: 2
-        x: 106
-        y: 476
-        width: 63
-        height: 28
+        x: 667
+        y: 1199
+        width: 9
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +194,10 @@ TextureImporter:
       name: Wall_Light_Bottom_3
       rect:
         serializedVersion: 2
-        x: 131
-        y: 479
+        x: 1127
+        y: 1191
         width: 7
-        height: 9
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +216,10 @@ TextureImporter:
       name: Wall_Light_Bottom_4
       rect:
         serializedVersion: 2
-        x: 185
-        y: 439
-        width: 54
-        height: 64
+        x: 1206
+        y: 1079
+        width: 19
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,121 +234,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Bottom_5
-      rect:
-        serializedVersion: 2
-        x: 231
-        y: 459
-        width: 50
-        height: 76
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8d2552cf363529650800000000000000
-      internalID: 6238140122758730456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Bottom_6
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 475
-        width: 11
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d493588b1e1bb0930800000000000000
-      internalID: 4110574667927206221
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Bottom_7
-      rect:
-        serializedVersion: 2
-        x: 330
-        y: 465
-        width: 23
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fed4a7320ac2877f0800000000000000
-      internalID: -614692282834465297
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Bottom_8
-      rect:
-        serializedVersion: 2
-        x: 388
-        y: 445
-        width: 80
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0ff7c5edf5d5dbdb0800000000000000
-      internalID: -4774557363608977424
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Light_Bottom_9
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 466
-        height: 426
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d59762929eca9350800000000000000
-      internalID: 6024354580478268886
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -378,11 +253,6 @@ TextureImporter:
       Wall_Light_Bottom_2: 7109305958269673351
       Wall_Light_Bottom_3: 4715104701364486020
       Wall_Light_Bottom_4: -4473881473431027995
-      Wall_Light_Bottom_5: 6238140122758730456
-      Wall_Light_Bottom_6: 4110574667927206221
-      Wall_Light_Bottom_7: -614692282834465297
-      Wall_Light_Bottom_8: -4774557363608977424
-      Wall_Light_Bottom_9: 6024354580478268886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

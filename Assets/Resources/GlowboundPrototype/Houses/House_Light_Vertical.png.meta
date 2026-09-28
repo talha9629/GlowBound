@@ -5,30 +5,6 @@ TextureImporter:
   - first:
       213: 6409764929482336756
     second: House_Light_Vertical_0
-  - first:
-      213: -6549481630408893412
-    second: House_Light_Vertical_1
-  - first:
-      213: -2615682011237768526
-    second: House_Light_Vertical_2
-  - first:
-      213: -589867042810782395
-    second: House_Light_Vertical_3
-  - first:
-      213: 2477141569690134844
-    second: House_Light_Vertical_4
-  - first:
-      213: 1341720529580875143
-    second: House_Light_Vertical_5
-  - first:
-      213: -3134045356564946161
-    second: House_Light_Vertical_6
-  - first:
-      213: 1984549290756180429
-    second: House_Light_Vertical_7
-  - first:
-      213: 9089355678557444819
-    second: House_Light_Vertical_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -70,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -96,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -142,8 +118,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 483
-        height: 543
+        width: 1254
+        height: 1254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,187 +134,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_1
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 532
-        width: 19
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c1c188468219b15a0800000000000000
-      internalID: -6549481630408893412
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_2
-      rect:
-        serializedVersion: 2
-        x: 464
-        y: 485
-        width: 19
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2b22bcab11b33bbd0800000000000000
-      internalID: -2615682011237768526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_3
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 435
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54d9d80cc0f50d7f0800000000000000
-      internalID: -589867042810782395
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 305
-        width: 31
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c39ebb71223906220800000000000000
-      internalID: 2477141569690134844
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_5
-      rect:
-        serializedVersion: 2
-        x: 458
-        y: 287
-        width: 25
-        height: 102
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78d548186bfbe9210800000000000000
-      internalID: 1341720529580875143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 183
-        width: 13
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f03ebf36a52a184d0800000000000000
-      internalID: -3134045356564946161
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_7
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 195
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dc986cab0198a8b10800000000000000
-      internalID: 1984549290756180429
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: House_Light_Vertical_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 52
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3da989905d0e32e70800000000000000
-      internalID: 9089355678557444819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -349,14 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       House_Light_Vertical_0: 6409764929482336756
-      House_Light_Vertical_1: -6549481630408893412
-      House_Light_Vertical_2: -2615682011237768526
-      House_Light_Vertical_3: -589867042810782395
-      House_Light_Vertical_4: 2477141569690134844
-      House_Light_Vertical_5: 1341720529580875143
-      House_Light_Vertical_6: -3134045356564946161
-      House_Light_Vertical_7: 1984549290756180429
-      House_Light_Vertical_8: 9089355678557444819
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

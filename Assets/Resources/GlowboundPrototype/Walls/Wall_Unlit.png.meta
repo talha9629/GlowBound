@@ -29,6 +29,27 @@ TextureImporter:
   - first:
       213: -1508471521844702980
     second: Wall_Unlit_8
+  - first:
+      213: -2720045312853944446
+    second: Wall_Unlit_9
+  - first:
+      213: 2975133152684033869
+    second: Wall_Unlit_10
+  - first:
+      213: -8602532196228397249
+    second: Wall_Unlit_11
+  - first:
+      213: -4244801470626946606
+    second: Wall_Unlit_12
+  - first:
+      213: 4059739904138883528
+    second: Wall_Unlit_13
+  - first:
+      213: -9036709823102662834
+    second: Wall_Unlit_14
+  - first:
+      213: -2867578432887591547
+    second: Wall_Unlit_15
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -70,7 +91,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -96,10 +117,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -140,10 +161,10 @@ TextureImporter:
       name: Wall_Unlit_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1215
-        height: 1238
+        x: 94
+        y: 1203
+        width: 46
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +183,10 @@ TextureImporter:
       name: Wall_Unlit_1
       rect:
         serializedVersion: 2
-        x: 731
-        y: 1205
-        width: 7
-        height: 8
+        x: 663
+        y: 1195
+        width: 74
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +205,10 @@ TextureImporter:
       name: Wall_Unlit_2
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 1078
-        width: 23
-        height: 19
+        x: 1065
+        y: 1207
+        width: 47
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,10 +227,10 @@ TextureImporter:
       name: Wall_Unlit_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 194
-        width: 6
-        height: 33
+        x: 1113
+        y: 1205
+        width: 15
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,10 +249,10 @@ TextureImporter:
       name: Wall_Unlit_4
       rect:
         serializedVersion: 2
-        x: 40
-        y: 168
-        width: 7
-        height: 12
+        x: 1127
+        y: 1211
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,10 +271,10 @@ TextureImporter:
       name: Wall_Unlit_5
       rect:
         serializedVersion: 2
-        x: 88
-        y: 119
-        width: 8
-        height: 9
+        x: 1125
+        y: 1189
+        width: 22
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +293,10 @@ TextureImporter:
       name: Wall_Unlit_6
       rect:
         serializedVersion: 2
-        x: 100
-        y: 77
-        width: 26
-        height: 17
+        x: 0
+        y: 0
+        width: 1239
+        height: 1168
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,10 +315,10 @@ TextureImporter:
       name: Wall_Unlit_7
       rect:
         serializedVersion: 2
-        x: 512
-        y: 15
-        width: 64
-        height: 43
+        x: 1206
+        y: 162
+        width: 6
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,10 +337,10 @@ TextureImporter:
       name: Wall_Unlit_8
       rect:
         serializedVersion: 2
-        x: 657
-        y: 34
-        width: 27
-        height: 22
+        x: 384
+        y: 39
+        width: 9
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,11 +355,165 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_9
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 47
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 287df5a0335704ad0800000000000000
+      internalID: -2720045312853944446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_10
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 23
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d474835e6dbc94920800000000000000
+      internalID: 2975133152684033869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_11
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 15
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3702f2bb8aad9880800000000000000
+      internalID: -8602532196228397249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_12
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 13
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d1a9396d8f6715c0800000000000000
+      internalID: -4244801470626946606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_13
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 17
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c13da2fee7175830800000000000000
+      internalID: 4059739904138883528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_14
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 15
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e47ceaf5b48279280800000000000000
+      internalID: -9036709823102662834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_Unlit_15
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 7
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58de92ebb905438d0800000000000000
+      internalID: -2867578432887591547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -350,6 +525,12 @@ TextureImporter:
     nameFileIdTable:
       Wall_Unlit_0: 815249300876792203
       Wall_Unlit_1: -4049064337558032418
+      Wall_Unlit_10: 2975133152684033869
+      Wall_Unlit_11: -8602532196228397249
+      Wall_Unlit_12: -4244801470626946606
+      Wall_Unlit_13: 4059739904138883528
+      Wall_Unlit_14: -9036709823102662834
+      Wall_Unlit_15: -2867578432887591547
       Wall_Unlit_2: -9046076829546051491
       Wall_Unlit_3: -3832251823204538001
       Wall_Unlit_4: -7702994188039914493
@@ -357,6 +538,7 @@ TextureImporter:
       Wall_Unlit_6: -8581872343826394426
       Wall_Unlit_7: -6207466375239209422
       Wall_Unlit_8: -1508471521844702980
+      Wall_Unlit_9: -2720045312853944446
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
