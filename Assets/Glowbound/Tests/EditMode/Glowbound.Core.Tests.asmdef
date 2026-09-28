@@ -1,0 +1,21 @@
+{
+  "name": "Glowbound.Core.Tests",
+  "rootNamespace": "Glowbound.Core.Tests",
+  "references": [
+    "Glowbound.Core"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
