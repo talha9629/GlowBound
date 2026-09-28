@@ -32,6 +32,7 @@ namespace Glowbound.Unity.Prototype
         };
 
         private GUIStyle _title, _status, _cell, _house, _small;
+        private PrototypeArtSkin _art;
         private CompiledPuzzle _puzzle;
         private PuzzleState _state;
         private PuzzleEvaluationResult _evaluation;
@@ -43,7 +44,11 @@ namespace Glowbound.Unity.Prototype
         private Rect _boardRect;
         private float _cellSize;
 
-        private void Awake() => LoadLevel(_levelIndex);
+        private void Awake()
+        {
+            _art = new PrototypeArtSkin();
+            LoadLevel(_levelIndex);
+        }
 
         private void Update()
         {
@@ -107,33 +112,32 @@ namespace Glowbound.Unity.Prototype
             for(var i=0;i<_puzzle.Definition.CellCount;i++)
             {
                 var rect=CellRect(i); var c=_puzzle.Definition.Cells[i];
-                if(c.Kind==CellKind.District) DrawDistrict(i,rect,c); else if(c.Kind==CellKind.House) DrawHouse(i,rect,c); else DrawWall(rect);
+                if(c.Kind==CellKind.District) DrawDistrict(i,rect,c); else if(c.Kind==CellKind.House) DrawHouse(i,rect,c); else DrawWall(i,rect);
             }
         }
 
         private void DrawDistrict(int index, Rect rect, CellDefinition c)
         {
-            var old=GUI.backgroundColor; GUI.backgroundColor=_districtColors[Math.Abs(c.DistrictId)%_districtColors.Length]; GUI.Box(Shrink(rect,1f),GUIContent.none,_cell); GUI.backgroundColor=old;
+            DrawTexture(rect, _art.Tile(c.DistrictId), 1f);
             if(_state[index]==PlayerCellState.X)
-            {
-                var oc=GUI.contentColor; GUI.contentColor=new Color(0.35f,0.38f,0.40f); GUI.Label(rect,"X",_cell); GUI.contentColor=oc;
-            }
+                DrawTexture(Shrink(rect,_cellSize*0.22f), _art.XMark);
             else if(_state[index]==PlayerCellState.Lantern)
-            {
-                var inner=Shrink(rect,_cellSize*0.22f); var oc=GUI.color; GUI.color=new Color(1f,0.68f,0.10f,0.98f); GUI.DrawTexture(inner,Texture2D.whiteTexture); GUI.color=oc; GUI.Label(rect,"L",_cell);
-            }
+                DrawTexture(Shrink(rect,_cellSize*0.12f), _art.Lantern);
         }
 
         private void DrawHouse(int index, Rect rect, CellDefinition c)
         {
-            var old=GUI.backgroundColor; GUI.backgroundColor=new Color(0.82f,0.67f,0.48f); GUI.Box(Shrink(rect,1f),c.HouseTarget.ToString(),_house); GUI.backgroundColor=old;
-            var h=FindHouse(index); if(!h.HasValue) return;
-            if(h.Value.IncomingCount>h.Value.Target) Overlay(rect,new Color(0.85f,0.12f,0.10f,0.32f)); else if(h.Value.IsSatisfied) Overlay(rect,new Color(0.20f,0.70f,0.28f,0.22f));
+            var h=FindHouse(index);
+            var mask=h.HasValue?h.Value.IncomingMask:LightDirectionMask.None;
+            DrawTexture(rect,_art.House(mask),1f);
+            var old=GUI.contentColor; GUI.contentColor=new Color(0.28f,0.18f,0.12f);
+            GUI.Label(Shrink(rect,_cellSize*0.28f),c.HouseTarget.ToString(),_house); GUI.contentColor=old;
+            if(h.HasValue && h.Value.IncomingCount>h.Value.Target) Overlay(rect,new Color(0.85f,0.12f,0.10f,0.24f));
         }
 
-        private void DrawWall(Rect rect)
+        private void DrawWall(int index, Rect rect)
         {
-            var old=GUI.backgroundColor; GUI.backgroundColor=new Color(0.25f,0.42f,0.28f); GUI.Box(Shrink(rect,1f),"#",_cell); GUI.backgroundColor=old;
+            DrawTexture(rect,_art.Wall(GetWallIncomingMask(index)),1f);
         }
 
         private void DrawBeams()
@@ -215,6 +219,40 @@ namespace Glowbound.Unity.Prototype
         {
             if(!_boardRect.Contains(p)) return -1; var x=Mathf.FloorToInt((p.x-_boardRect.x)/_cellSize); var y=Mathf.FloorToInt((p.y-_boardRect.y)/_cellSize);
             return _puzzle.Definition.IsInBounds(x,y)?_puzzle.Definition.ToIndex(x,y):-1;
+        }
+
+        private LightDirectionMask GetWallIncomingMask(int wallCell)
+        {
+            var mask=LightDirectionMask.None;
+            for(var i=0;i<_state.CellCount;i++)
+            {
+                if(_state[i]!=PlayerCellState.Lantern) continue;
+                foreach(var ray in LightPropagation.TraceFromLantern(_puzzle,_state,i))
+                {
+                    if(ray.Termination!=LightRayTermination.Wall || ray.TerminalCellIndex!=wallCell) continue;
+                    mask |= IncomingMask(ray.Direction);
+                }
+            }
+            return mask;
+        }
+
+        private static LightDirectionMask IncomingMask(LightDirection rayDirection)
+        {
+            switch(rayDirection)
+            {
+                case LightDirection.Up: return LightDirectionMask.Down;
+                case LightDirection.Right: return LightDirectionMask.Left;
+                case LightDirection.Down: return LightDirectionMask.Up;
+                case LightDirection.Left: return LightDirectionMask.Right;
+                default: return LightDirectionMask.None;
+            }
+        }
+
+        private static void DrawTexture(Rect rect, Texture2D texture, float inset=0f)
+        {
+            if(texture==null) return;
+            var target=inset>0f?Shrink(rect,inset):rect;
+            GUI.DrawTexture(target,texture,ScaleMode.ScaleToFit,true);
         }
 
         private HouseEvaluation? FindHouse(int cell)
