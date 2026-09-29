@@ -2,7 +2,9 @@
   "name": "Glowbound.Unity",
   "rootNamespace": "Glowbound.Unity",
   "references": [
-    "Glowbound.Core"
+    "Glowbound.Core",
+    "UnityEngine.UI",
+    "Unity.InputSystem"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
